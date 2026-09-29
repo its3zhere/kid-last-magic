@@ -19,6 +19,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            color: #ffffff;
         }
 
         .container {
@@ -41,28 +42,29 @@
             width: 100%;
             padding: 14px 18px;
             font-size: 16px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #333333;
             border-radius: 12px;
             outline: none;
             text-align: center;
             letter-spacing: 2px;
             transition: border-color 0.3s, box-shadow 0.3s;
-            background-color: #fafafa;
+            background-color: #111111;
+            color: #ffffff;
         }
 
         input[type="text"]:focus {
-            border-color: #000000;
-            background-color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-color: #ffffff;
+            background-color: #1a1a1a;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
         }
 
         button {
             padding: 14px;
             font-size: 15px;
             font-weight: 500;
-            color: #ffffff;
-            background-color: #000000;
-            border: 1px solid #000000;
+            color: #000000;
+            background-color: #ffffff;
+            border: 1px solid #ffffff;
             border-radius: 12px;
             cursor: pointer;
             transition: background-color 0.2s, color 0.2s, transform 0.1s, box-shadow 0.3s;
@@ -73,11 +75,11 @@
         }
 
         @keyframes bwPulse {
-            0% { background-color: #000000; color: #ffffff; box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); }
-            25% { background-color: #ffffff; color: #000000; box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
-            50% { background-color: #000000; color: #ffffff; box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); }
-            75% { background-color: #ffffff; color: #000000; box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
-            100% { background-color: #000000; color: #ffffff; box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); }
+            0% { background-color: #ffffff; color: #000000; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+            25% { background-color: #000000; color: #ffffff; box-shadow: 0 0 25px rgba(0, 0, 0, 1); }
+            50% { background-color: #ffffff; color: #000000; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
+            75% { background-color: #000000; color: #ffffff; box-shadow: 0 0 25px rgba(0, 0, 0, 1); }
+            100% { background-color: #ffffff; color: #000000; box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); }
         }
 
         .btn-pulse {
@@ -86,7 +88,7 @@
         }
 
         .error-msg {
-            color: #e63946;
+            color: #ff4d4d;
             font-size: 13px;
             margin-top: 8px;
             min-height: 20px;
@@ -107,8 +109,8 @@
             aspect-ratio: 16 / 9;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            border: 1px solid #eaeaea;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            border: 1px solid #222222;
         }
 
         .video-container.show {
