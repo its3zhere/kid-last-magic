@@ -72,7 +72,6 @@
             transform: scale(0.98);
         }
 
-      
         @keyframes bwPulse {
             0% { background-color: #000000; color: #ffffff; box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); }
             25% { background-color: #ffffff; color: #000000; box-shadow: 0 0 25px rgba(255, 255, 255, 1); }
@@ -99,7 +98,6 @@
             opacity: 1;
         }
 
-       
         .video-container {
             display: none;
             opacity: 0;
@@ -119,7 +117,7 @@
             transform: scale(1);
         }
 
-        iframe {
+        iframe, video {
             width: 100%;
             height: 100%;
             border: none;
@@ -140,24 +138,27 @@
 
     <div class="container">
         <div class="input-group" id="inputGroup">
-            <input type="text" id="codeInput" placeholder="أدخل الرمز..." autocomplete="off">
-            <button id="verifyBtn" onclick="checkCode()">تحقق</button>
+            <input type="text" id="codeInput" placeholder="أدخل الرمز الأول..." autocomplete="off">
+            <button id="verifyBtn" onclick="handleCodeVerification()">تحقق</button>
             <div class="error-msg" id="errorMsg">الرمز غير صحيح، حاول مجدداً</div>
         </div>
 
         <div class="video-container" id="videoContainer">
-            <iframe id="videoPlayer" src="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe id="videoPlayer" src="" title="Video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     </div>
 
     <script>
         const CONFIG = {
-            SECRET_CODE: "1412",
-           
-            VIDEO_ID: "8PEIZcFtJkw"
+            SECRET_CODE_1: "1412",
+            STEP1_YOUTUBE_URL: "https://www.youtube.com/watch?v=8PEIZcFtJkw&list=RDuUDyxQi_SR8&index=6",
+            SECRET_CODE_2: "ファファ",
+            STEP2_VIDEO_URL: "https://www.youtube.com/embed/8PEIZcFtJkw?autoplay=1"
         };
 
-        function checkCode() {
+        let currentStep = 1;
+
+        function handleCodeVerification() {
             const input = document.getElementById('codeInput');
             const errorMsg = document.getElementById('errorMsg');
             const inputGroup = document.getElementById('inputGroup');
@@ -165,37 +166,52 @@
             const videoContainer = document.getElementById('videoContainer');
             const videoPlayer = document.getElementById('videoPlayer');
 
-            if (input.value.trim() === CONFIG.SECRET_CODE) {
-                errorMsg.classList.remove('show');
+            if (currentStep === 1) {
+                if (input.value.trim() === CONFIG.SECRET_CODE_1) {
+                    errorMsg.classList.remove('show');
+                    verifyBtn.classList.add('btn-pulse');
 
-                verifyBtn.classList.add('btn-pulse');
-
-                setTimeout(() => {
-                   
-                    inputGroup.style.opacity = '0';
-                    
                     setTimeout(() => {
-                        inputGroup.style.display = 'none';
+                        window.open(CONFIG.STEP1_YOUTUBE_URL, '_blank');
                         
-                    
-                        videoPlayer.src = `https://www.youtube.com/embed/${CONFIG.VIDEO_ID}?autoplay=1`;
-                        videoContainer.classList.add('show');
-                    }, 400);
+                        verifyBtn.classList.remove('btn-pulse');
+                        input.value = "";
+                        input.placeholder = "أدخل الكود الثاني من المقطع...";
+                        currentStep = 2;
+                    }, 1200);
+                } else {
+                    showError(inputGroup, errorMsg);
+                }
+            } else if (currentStep === 2) {
+                if (input.value.trim() === CONFIG.SECRET_CODE_2) {
+                    errorMsg.classList.remove('show');
+                    verifyBtn.classList.add('btn-pulse');
 
-                }, 1200); 
-
-            } else {
-                errorMsg.classList.add('show');
-                inputGroup.classList.add('shake');
-                setTimeout(() => {
-                    inputGroup.classList.remove('shake');
-                }, 400);
+                    setTimeout(() => {
+                        inputGroup.style.opacity = '0';
+                        setTimeout(() => {
+                            inputGroup.style.display = 'none';
+                            videoPlayer.src = CONFIG.STEP2_VIDEO_URL;
+                            videoContainer.classList.add('show');
+                        }, 400);
+                    }, 1200);
+                } else {
+                    showError(inputGroup, errorMsg);
+                }
             }
+        }
+
+        function showError(inputGroup, errorMsg) {
+            errorMsg.classList.add('show');
+            inputGroup.classList.add('shake');
+            setTimeout(() => {
+                inputGroup.classList.remove('shake');
+            }, 400);
         }
 
         document.getElementById('codeInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                checkCode();
+                handleCodeVerification();
             }
         });
     </script>
